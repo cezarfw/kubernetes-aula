@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta1
+kind: Deployment  # Configuracao do deployment
+metadata: 
+  name: aplicacao-deployment
+
+
+spec:    # Configuracao do pod
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: aplicacao-pod    
+
+
+    spec:   # Configuracao do container
+      containers:
+         - name: container-aplicacao-loja
+           image: rafanercessian/aplicacao-loja:v1
+           ports:
+             - containerPort: 80
