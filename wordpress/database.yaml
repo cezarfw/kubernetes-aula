@@ -1,0 +1,39 @@
+apiVersion: apps/v1    # DEPLOYMENT
+kind: Deployment
+metadata:
+  name: wordpress-deployment-db
+  labels: 
+    app: wordpress-deployment-db
+
+spec:    # POD DB
+  selector:
+    matchLabels:
+      app: wordpress-pod-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: wordpress-pod-db
+
+
+    spec:    # CONTAINER
+      containers:
+      - name: db
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: 123
+        - name: MYSQL_DATABASE
+          value: "database-teste-cezar"
+        - name: MYSQL_USER
+          value: "wordpress"
+        - name: MYSQL_PASSWORD
+          value: "123"
+#       resources:
+#          limits:
+#            memory: "128Mi"
+#            cpu: "500m"
+        ports:
+        - containerPort: 3306
+      dnsPolicy: ClusterFirst
+
